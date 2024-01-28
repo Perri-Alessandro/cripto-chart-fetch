@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cripto Chart Fetch" />
+    <meta name="author" content="Alessandro Perri" />
+    <meta
+      property="og:title"
+      content="Cripto Chart (by fetch) - Perri Alessandro"
+    />
+    <meta property="og:description" content="Dai un'occhio a questi grafici!" />
+    <meta property="og:image" content="./assets/images/perri_3D.jpg" />
+    <!-- <meta property="og:url" content="" /> -->
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="./assets/css/custom.css" />
+    <title>Cripto Info</title>
+  </head>
+  <body class="bg-black">
+    <header>
+      <h1 class="text-center text-white mt-3">CRIPTO CHART</h1>
+    </header>
+    <main class="container">
+      <section class="row">
+        <div class="col text-white col fs-3">
+          <div
+            id="price"
+            class="row justify-content-between align-items-center"
+          >
+            <p id="dataEora" class="mt-5 text-center col-12 fs-5"></p>
+            <p class="mt-2 col-12 text-center">Price (in USD)</p>
+          </div>
+          <div
+            id="priceUnder"
+            class="row justify-content-between align-items-center"
+          ></div>
+        </div>
+      </section>
+    </main>
+    <footer class="container">
+      <div class="row">
+        <p id="anno" class="col text-center text-white fixed-bottom"></p>
+      </div>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
+  </body>
+</html>
