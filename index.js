@@ -208,25 +208,36 @@ if (!parentDiv) {
 }
 //////////////////////////////
 
-// const endDate = new Date();
-// const startDate = new Date();
-// startDate.setDate(endDate.getDate() - 30); // 30 giorni fa
+// const apiKeyCmc = "42887163-636e-4505-b43f-f84446905f41";
+// const requestOptions = {
+//   method: "GET",
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${apiKeyCmc}`,
+//   },
+// };
+// const url = "https://coinmarketcap.com/dexscan/ethereum/";
 
-const endpoint = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&from=${
-  startDate.getTime() / 1000
-}&to=${endDate.getTime() / 1000}`;
-
-fetch(endpoint)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    // Ora puoi lavorare con i dati storici ottenuti
-    console.log(data);
-  })
-  .catch((error) => {
-    console.error("Fetch error:", error);
-  });
+// fetch(url, requestOptions)
+//   .then((response) => {
+//     if (response.ok) {
+//       console.log("SERVER IS IN THE CALL", response);
+//       return response.json();
+//     } else if (response.status === 400) {
+//       throw new Error("ERROR 400 BTC CHART");
+//     } else if (response.status === 401) {
+//       throw new Error("ERROR 401, AUTENTICATION PROBLEMS BTC CHART");
+//     } else if (response.status === 403) {
+//       throw new Error("ERROR 403 BTC CHART");
+//     } else if (response.status === 500) {
+//       throw new Error("ERROR 500, SERVER PROBLEMS BTC CHART");
+//     } else {
+//       throw new Error("ERROR BTC CHART");
+//     }
+//   })
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((err) => {
+//     console.log("ERROR FOURTH FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
+//   });
