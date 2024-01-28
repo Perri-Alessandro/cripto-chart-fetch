@@ -21,8 +21,6 @@ let eccolo = (document.getElementById("anno").innerHTML =
 ////////////////////////////////////////////////////////////////////////////////////
 
 const getDataEtime = function () {
-  let intervalId;
-
   const updateTime = function () {
     const now = new Date();
     // Ottenere la data completa (YYYY-MM-DD)
@@ -35,11 +33,14 @@ const getDataEtime = function () {
     const timeElement = document.getElementById("dataEora");
     timeElement.textContent = fullDateTime;
   };
-  intervalId = setInterval(updateTime, 1000);
+  setInterval(updateTime, 1000);
 
-  return intervalId;
+  // Ricarica la pagina quando cambia la lingua
+  document.body.addEventListener("languagechange", function () {
+    location.reload();
+  });
 };
-const intervalId = getDataEtime();
+getDataEtime();
 
 fetch(
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
@@ -64,7 +65,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER", data);
     const price = document.getElementById("price");
     const col = document.createElement("p");
-    col.classList.add("col-4", "text-center");
+    col.classList.add("col-5", "text-center");
 
     col.textContent = "BTC: " + data.bitcoin.usd;
 
@@ -97,7 +98,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER IN THE SECOND FETCH", data);
     const price = document.getElementById("price");
     const col2 = document.createElement("p");
-    col2.classList.add("col-4", "text-center");
+    col2.classList.add("col-5", "text-center");
 
     col2.textContent = "ETH: " + data.ethereum.usd;
 
@@ -130,7 +131,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER IN THE THIRD FETCH", data);
     const price2 = document.getElementById("priceUnder");
     const col3 = document.createElement("p");
-    col3.classList.add("col-4", "text-center");
+    col3.classList.add("col-5", "text-center");
 
     col3.textContent = "DOT: " + data.polkadot.usd;
 
@@ -163,7 +164,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER IN THE FOURTH FETCH", data);
     const priceUnder = document.getElementById("priceUnder");
     const col4 = document.createElement("p");
-    col4.classList.add("col-4", "text-center");
+    col4.classList.add("col-5", "text-center");
     col4.id = "parentDiv";
 
     col4.textContent = "SOL: " + data.solana.usd;
