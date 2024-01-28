@@ -1,3 +1,17 @@
+// fetch("https://jsonplaceholder.typicode.com/todos/1")
+//   .then((response) => {
+//     if(response.ok) {
+//       response.json()
+//       console.log(response)
+//     }
+//   })
+//   .then((json) => {
+//     console.log(json)
+//   });
+//   .catch((err) => {
+//     console.log(err)
+//   })
+
 ///////////////////////////////////////////////////////////////////////////////////
 let annoCorrente = new Date().getFullYear();
 let eccolo = (document.getElementById("anno").innerHTML =
@@ -24,6 +38,24 @@ const getDataEtime = function () {
   setInterval(updateTime, 1000);
 };
 getDataEtime();
+
+// Per affrontare questo problema, puoi aggiungere un parametro di query dinamico al tuo URL quando carichi la pagina.
+// Ad esempio, puoi aggiungere un timestamp corrente come parametro di query. In questo modo, ogni volta che ricarichi
+// la pagina, il timestamp cambierà e forzerà il browser a recuperare nuovamente la pagina. Modifica il codice in questo modo:
+const timeStampOnUrl = function () {
+  function getCurrentTimestamp() {
+    return new Date().getTime();
+  }
+  // Funzione per aggiornare l'URL con il timestamp
+  function updateURLWithTimestamp() {
+    var currentTimestamp = getCurrentTimestamp();
+    var newURL = window.location.href + "?timestamp=" + currentTimestamp;
+    window.history.replaceState({}, document.title, newURL);
+  }
+
+  window.onload = updateURLWithTimestamp;
+};
+timeStampOnUrl();
 
 fetch(
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
@@ -186,3 +218,26 @@ if (!parentDiv) {
   });
 }
 //////////////////////////////
+
+// const endDate = new Date();
+// const startDate = new Date();
+// startDate.setDate(endDate.getDate() - 30); // 30 giorni fa
+
+// const endpoint = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&from=${
+//   startDate.getTime() / 1000
+// }&to=${endDate.getTime() / 1000}`;
+
+// fetch(endpoint)
+//   .then((response) => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then((data) => {
+//     // Ora puoi lavorare con i dati storici ottenuti
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.error("Fetch error:", error);
+//   });
