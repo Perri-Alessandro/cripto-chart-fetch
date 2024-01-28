@@ -37,10 +37,10 @@ const getDataEtime = function () {
 };
 getDataEtime();
 
-// Ricarica la pagina quando cambia la lingua
-document.body.addEventListener("languagechange", function () {
-  location.reload();
-});
+// // Ricarica la pagina quando cambia la lingua
+// document.body.addEventListener("languagechange", function () {
+//   location.reload();
+// });
 
 fetch(
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
@@ -65,7 +65,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER", data);
     const price = document.getElementById("price");
     const col = document.createElement("p");
-    col.classList.add("col-5", "text-center");
+    col.classList.add("col-6", "text-center", "mt-2");
 
     col.textContent = "BTC: " + data.bitcoin.usd;
 
@@ -98,7 +98,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER IN THE SECOND FETCH", data);
     const price = document.getElementById("price");
     const col2 = document.createElement("p");
-    col2.classList.add("col-5", "text-center");
+    col2.classList.add("col-6", "text-center", "mt-3");
 
     col2.textContent = "ETH: " + data.ethereum.usd;
 
@@ -131,7 +131,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER IN THE THIRD FETCH", data);
     const price2 = document.getElementById("priceUnder");
     const col3 = document.createElement("p");
-    col3.classList.add("col-5", "text-center");
+    col3.classList.add("col-6", "text-center", "mt-3");
 
     col3.textContent = "DOT: " + data.polkadot.usd;
 
@@ -164,7 +164,7 @@ fetch(
     console.log("DATA RECEIVED FROM THE SERVER IN THE FOURTH FETCH", data);
     const priceUnder = document.getElementById("priceUnder");
     const col4 = document.createElement("p");
-    col4.classList.add("col-5", "text-center");
+    col4.classList.add("col-6", "text-center", "mt-3");
     col4.id = "parentDiv";
 
     col4.textContent = "SOL: " + data.solana.usd;
@@ -212,21 +212,21 @@ if (!parentDiv) {
 // const startDate = new Date();
 // startDate.setDate(endDate.getDate() - 30); // 30 giorni fa
 
-// const endpoint = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&from=${
-//   startDate.getTime() / 1000
-// }&to=${endDate.getTime() / 1000}`;
+const endpoint = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&from=${
+  startDate.getTime() / 1000
+}&to=${endDate.getTime() / 1000}`;
 
-// fetch(endpoint)
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
-//     return response.json();
-//   })
-//   .then((data) => {
-//     // Ora puoi lavorare con i dati storici ottenuti
-//     console.log(data);
-//   })
-//   .catch((error) => {
-//     console.error("Fetch error:", error);
-//   });
+fetch(endpoint)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    // Ora puoi lavorare con i dati storici ottenuti
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error("Fetch error:", error);
+  });
