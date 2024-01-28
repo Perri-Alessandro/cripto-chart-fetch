@@ -20,25 +20,8 @@ let eccolo = (document.getElementById("anno").innerHTML =
   " My Cripto Info. All rights reserved. Created by Perri Alessandro");
 ////////////////////////////////////////////////////////////////////////////////////
 
-// Per affrontare il problema del reload dell'intera data & time ogni secondo pubblicando la pagina (non da live server), puoi aggiungere
-// un parametro di query dinamico al tuo URL quando carichi la pagina. Ad esempio, puoi aggiungere un timestamp corrente come parametro di query.
-// In questo modo, ogni volta che ricarichi la pagina, il timestamp cambierà e forzerà il browser a recuperare nuovamente la pagina.
-const timeStampOnUrl = function () {
-  function getCurrentTimestamp() {
-    return new Date().getTime();
-  }
-  // Funzione per aggiornare l'URL con il timestamp
-  function updateURLWithTimestamp() {
-    var currentTimestamp = getCurrentTimestamp();
-    var newURL = window.location.href + "?timestamp=" + currentTimestamp;
-    window.history.replaceState({}, document.title, newURL);
-  }
-
-  window.onload = updateURLWithTimestamp;
-};
-timeStampOnUrl();
-
 const getDataEtime = function () {
+  let intervalId;
   const updateTime = function () {
     const now = new Date();
     // Ottenere la data completa (YYYY-MM-DD)
@@ -51,9 +34,9 @@ const getDataEtime = function () {
     const timeElement = document.getElementById("dataEora");
     timeElement.textContent = fullDateTime;
   };
+  intervalId = setInterval(updateTime, 1000);
 
-  // Chiama la funzione updateTime ogni secondo (1000 millisecondi)
-  setInterval(updateTime, 1000);
+  // return intervalId;
 };
 getDataEtime();
 
