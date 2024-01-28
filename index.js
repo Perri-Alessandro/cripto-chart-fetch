@@ -22,6 +22,7 @@ let eccolo = (document.getElementById("anno").innerHTML =
 
 const getDataEtime = function () {
   let intervalId;
+
   const updateTime = function () {
     const now = new Date();
     // Ottenere la data completa (YYYY-MM-DD)
@@ -36,9 +37,9 @@ const getDataEtime = function () {
   };
   intervalId = setInterval(updateTime, 1000);
 
-  // return intervalId;
+  return intervalId;
 };
-getDataEtime();
+const intervalId = getDataEtime();
 
 fetch(
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
