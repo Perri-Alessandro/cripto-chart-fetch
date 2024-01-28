@@ -37,6 +37,11 @@ const getDataEtime = function () {
 };
 getDataEtime();
 
+// Ricarica la pagina quando cambia la lingua
+document.body.addEventListener("languagechange", function () {
+  location.reload();
+});
+
 fetch(
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
 )
@@ -172,10 +177,7 @@ fetch(
   });
 
 const reloadPage = function () {
-  // Ricarica la pagina quando cambia la lingua
-  document.body.addEventListener("languagechange", function () {
-    location.reload();
-  });
+  location.reload();
 };
 
 ///////////////////////////////
