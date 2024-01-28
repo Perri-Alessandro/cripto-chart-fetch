@@ -28,8 +28,17 @@
             class="row justify-content-between align-items-center"
           >
             <p id="dataEora" class="mt-5 text-center col-12 fs-5"></p>
-            <p class="mt-2 col-12 text-center mb-0">Price (in USD)</p>
+            <p class="mt-1 col-12 text-center mb-0">Price (in USD)</p>
             <p class="col-12 text-center fs-5 mt-0">Updated when page loads</p>
+            <div class="col-12 text-center">
+              <button
+                type="button"
+                onclick="reloadPage()"
+                class="btn btn-warning border-white rounded-3"
+              >
+                Refresh All Price
+              </button>
+            </div>
           </div>
           <div
             id="priceUnder"

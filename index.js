@@ -20,6 +20,24 @@ let eccolo = (document.getElementById("anno").innerHTML =
   " My Cripto Info. All rights reserved. Created by Perri Alessandro");
 ////////////////////////////////////////////////////////////////////////////////////
 
+// Per affrontare il problema del reload dell'intera data & time ogni secondo pubblicando la pagina (non da live server), puoi aggiungere
+// un parametro di query dinamico al tuo URL quando carichi la pagina. Ad esempio, puoi aggiungere un timestamp corrente come parametro di query.
+// In questo modo, ogni volta che ricarichi la pagina, il timestamp cambierà e forzerà il browser a recuperare nuovamente la pagina.
+const timeStampOnUrl = function () {
+  function getCurrentTimestamp() {
+    return new Date().getTime();
+  }
+  // Funzione per aggiornare l'URL con il timestamp
+  function updateURLWithTimestamp() {
+    var currentTimestamp = getCurrentTimestamp();
+    var newURL = window.location.href + "?timestamp=" + currentTimestamp;
+    window.history.replaceState({}, document.title, newURL);
+  }
+
+  window.onload = updateURLWithTimestamp;
+};
+timeStampOnUrl();
+
 const getDataEtime = function () {
   const updateTime = function () {
     const now = new Date();
@@ -38,24 +56,6 @@ const getDataEtime = function () {
   setInterval(updateTime, 1000);
 };
 getDataEtime();
-
-// Per affrontare questo problema, puoi aggiungere un parametro di query dinamico al tuo URL quando carichi la pagina.
-// Ad esempio, puoi aggiungere un timestamp corrente come parametro di query. In questo modo, ogni volta che ricarichi
-// la pagina, il timestamp cambierà e forzerà il browser a recuperare nuovamente la pagina. Modifica il codice in questo modo:
-const timeStampOnUrl = function () {
-  function getCurrentTimestamp() {
-    return new Date().getTime();
-  }
-  // Funzione per aggiornare l'URL con il timestamp
-  function updateURLWithTimestamp() {
-    var currentTimestamp = getCurrentTimestamp();
-    var newURL = window.location.href + "?timestamp=" + currentTimestamp;
-    window.history.replaceState({}, document.title, newURL);
-  }
-
-  window.onload = updateURLWithTimestamp;
-};
-timeStampOnUrl();
 
 fetch(
   "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
@@ -190,6 +190,10 @@ fetch(
   .catch((err) => {
     console.log("ERROR FOURTH FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
   });
+
+const reloadPage = function () {
+  location.reload();
+};
 
 ///////////////////////////////
 function hideLoadingAnimation() {
