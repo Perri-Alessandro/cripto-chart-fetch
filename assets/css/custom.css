@@ -30,17 +30,31 @@
   content: "";
   display: block;
   width: 0.5%;
-  border-width: 70px;
+  border-width: 3em;
+  position: absolute;
+  top: 30%;
+  left: 48%;
   border-style: solid;
   border-color: rgb(0, 255, 0) transparent transparent transparent;
   border-radius: 50%;
-  background-color: transparent;
   animation: clessidra 1s infinite;
-  position: absolute;
-  top: 30%;
-  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
+}
+@media screen and (max-width: 767px) {
+  .clessidra::before {
+    left: 43%;
+  }
+}
+@media screen and (max-width: 575px) {
+  .clessidra::before {
+    left: 42%;
+  }
+}
+@media screen and (max-width: 413px) {
+  .clessidra::before {
+    left: 37%;
+  }
 }
 
 /*!
