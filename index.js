@@ -34,11 +34,6 @@ const getDataEtime = function () {
     timeElement.textContent = fullDateTime;
   };
   setInterval(updateTime, 1000);
-
-  // Ricarica la pagina quando cambia la lingua
-  document.body.addEventListener("languagechange", function () {
-    location.reload();
-  });
 };
 getDataEtime();
 
@@ -177,7 +172,10 @@ fetch(
   });
 
 const reloadPage = function () {
-  location.reload();
+  // Ricarica la pagina quando cambia la lingua
+  document.body.addEventListener("languagechange", function () {
+    location.reload();
+  });
 };
 
 ///////////////////////////////
