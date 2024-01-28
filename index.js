@@ -25,202 +25,139 @@ const getDataEtime = function () {
 };
 getDataEtime();
 
-let shouldReload = true;
-let completedFetches = 0;
-const totalFetches = 4;
+fetch(
+  "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+)
+  .then((response) => {
+    if (response.ok) {
+      console.log("SERVER IS IN THE CALL", response);
+      return response.json();
+    } else if (response.status === 400) {
+      throw new Error("ERROR 400");
+    } else if (response.status === 401) {
+      throw new Error("ERROR 401, AUTENTICATION PROBLEMS");
+    } else if (response.status === 403) {
+      throw new Error("ERROR 403");
+    } else if (response.status === 500) {
+      throw new Error("ERROR 500, SERVER PROBLEMS");
+    } else {
+      throw new Error("ERROR");
+    }
+  })
+  .then((data) => {
+    console.log("DATA RECEIVED FROM THE SERVER", data);
+    const price = document.getElementById("price");
+    const col = document.createElement("p");
+    col.classList.add("col-4", "text-center");
 
-function checkAndReload() {
-  completedFetches++;
-  if (completedFetches === totalFetches && shouldReload) {
-    shouldReload = false;
+    col.textContent = "BTC: " + data.bitcoin.usd;
 
-    setTimeout(() => {
-      location.reload();
-    }, 10000); // Ricarica la pagina dopo 10 secondi
+    price.appendChild(col);
+  })
+  .catch((err) => {
+    console.log("ERROR, SERVER DOES NOT RECEIVE THE CALL", err);
+  });
 
-    console.log("Tutte le chiamate Fetch sono state completate");
-  }
-}
+fetch(
+  "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+)
+  .then((response) => {
+    if (response.ok) {
+      console.log("SERVER IN SECOND FETCH IS IN THE CALL", response);
+      return response.json();
+    } else if (response.status === 400) {
+      throw new Error("ERROR SECOND FETCH 400");
+    } else if (response.status === 401) {
+      throw new Error("ERROR 401 SECOND FETCH, AUTENTICATION PROBLEMS");
+    } else if (response.status === 403) {
+      throw new Error("ERROR 403 SECOND FETCH");
+    } else if (response.status === 500) {
+      throw new Error("ERROR 500 SECOND FETCH, SERVER PROBLEMS");
+    } else {
+      throw new Error("ERROR SECOND FETCH");
+    }
+  })
+  .then((data) => {
+    console.log("DATA RECEIVED FROM THE SERVER IN THE SECOND FETCH", data);
+    const price = document.getElementById("price");
+    const col2 = document.createElement("p");
+    col2.classList.add("col-4", "text-center");
 
-fetchBitcoin();
+    col2.textContent = "ETH: " + data.ethereum.usd;
 
-function fetchBitcoin() {
-  fetch(
-    "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
-  )
-    .then((response) => {
-      if (response.ok) {
-        console.log("SERVER IS IN THE CALL", response);
-        return response.json();
-      } else if (response.status === 400) {
-        throw new Error("ERROR 400");
-      } else if (response.status === 401) {
-        throw new Error("ERROR 401, AUTENTICATION PROBLEMS");
-      } else if (response.status === 403) {
-        throw new Error("ERROR 403");
-      } else if (response.status === 500) {
-        throw new Error("ERROR 500, SERVER PROBLEMS");
-      } else {
-        throw new Error("ERROR");
-      }
-    })
-    .then((data) => {
-      console.log("DATA RECEIVED FROM THE SERVER", data);
-      const price = document.getElementById("price");
-      const col = document.createElement("p");
-      col.classList.add("col-4", "text-center");
+    price.appendChild(col2);
+  })
+  .catch((err) => {
+    console.log("ERROR SECOND FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
+  });
 
-      col.textContent = "BTC: " + data.bitcoin.usd;
+fetch(
+  "https://api.coingecko.com/api/v3/simple/price?ids=polkadot&vs_currencies=usd"
+)
+  .then((response) => {
+    if (response.ok) {
+      console.log("SERVER IN THIRD FETCH IS IN THE CALL", response);
+      return response.json();
+    } else if (response.status === 400) {
+      throw new Error("ERROR THIRD FETCH 400");
+    } else if (response.status === 401) {
+      throw new Error("ERROR 401 THIRD FETCH, AUTENTICATION PROBLEMS");
+    } else if (response.status === 403) {
+      throw new Error("ERROR 403 THIRD FETCH");
+    } else if (response.status === 500) {
+      throw new Error("ERROR 500 THIRD FETCH, SERVER PROBLEMS");
+    } else {
+      throw new Error("ERROR THIRD FETCH");
+    }
+  })
+  .then((data) => {
+    console.log("DATA RECEIVED FROM THE SERVER IN THE THIRD FETCH", data);
+    const price2 = document.getElementById("priceUnder");
+    const col3 = document.createElement("p");
+    col3.classList.add("col-4", "text-center");
 
-      price.appendChild(col);
+    col3.textContent = "DOT: " + data.polkadot.usd;
 
-      checkAndReload();
+    price2.appendChild(col3);
+  })
+  .catch((err) => {
+    console.log("ERROR THIRD FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
+  });
 
-      fetchEthereum();
-    })
-    .catch((err) => {
-      console.log("ERROR, SERVER DOES NOT RECEIVE THE CALL", err);
-      completedFetches++;
-      checkAndReload();
-    });
-}
-function fetchEthereum() {
-  fetch(
-    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-  )
-    .then((response) => {
-      if (response.ok) {
-        console.log("SERVER IN SECOND FETCH IS IN THE CALL", response);
-        return response.json();
-      } else if (response.status === 400) {
-        throw new Error("ERROR SECOND FETCH 400");
-      } else if (response.status === 401) {
-        throw new Error("ERROR 401 SECOND FETCH, AUTENTICATION PROBLEMS");
-      } else if (response.status === 403) {
-        throw new Error("ERROR 403 SECOND FETCH");
-      } else if (response.status === 500) {
-        throw new Error("ERROR 500 SECOND FETCH, SERVER PROBLEMS");
-      } else {
-        throw new Error("ERROR SECOND FETCH");
-      }
-    })
-    .then((data) => {
-      console.log("DATA RECEIVED FROM THE SERVER IN THE SECOND FETCH", data);
-      const price = document.getElementById("price");
-      const col2 = document.createElement("p");
-      col2.classList.add("col-4", "text-center");
+fetch(
+  "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd"
+)
+  .then((response) => {
+    if (response.ok) {
+      console.log("SERVER IN FOURTH FETCH IS IN THE CALL", response);
+      return response.json();
+    } else if (response.status === 400) {
+      throw new Error("ERROR FOURTH FETCH 400");
+    } else if (response.status === 401) {
+      throw new Error("ERROR 401 FOURTH FETCH, AUTENTICATION PROBLEMS");
+    } else if (response.status === 403) {
+      throw new Error("ERROR 403 FOURTH FETCH");
+    } else if (response.status === 500) {
+      throw new Error("ERROR 500 FOURTH FETCH, SERVER PROBLEMS");
+    } else {
+      throw new Error("ERROR FOURTH FETCH");
+    }
+  })
+  .then((data) => {
+    console.log("DATA RECEIVED FROM THE SERVER IN THE FOURTH FETCH", data);
+    const priceUnder = document.getElementById("priceUnder");
+    const col4 = document.createElement("p");
+    col4.classList.add("col-4", "text-center");
+    col4.id = "parentDiv";
 
-      col2.textContent = "ETH: " + data.ethereum.usd;
+    col4.textContent = "SOL: " + data.solana.usd;
 
-      price.appendChild(col2);
-
-      completedFetches++;
-      checkAndReload();
-      fetchPolkadot();
-    })
-    .catch((err) => {
-      console.log("ERROR SECOND FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
-      completedFetches++;
-      checkAndReload();
-    });
-}
-
-function fetchPolkadot() {
-  fetch(
-    "https://api.coingecko.com/api/v3/simple/price?ids=polkadot&vs_currencies=usd"
-  )
-    .then((response) => {
-      if (response.ok) {
-        console.log("SERVER IN THIRD FETCH IS IN THE CALL", response);
-        return response.json();
-      } else if (response.status === 400) {
-        throw new Error("ERROR THIRD FETCH 400");
-      } else if (response.status === 401) {
-        throw new Error("ERROR 401 THIRD FETCH, AUTENTICATION PROBLEMS");
-      } else if (response.status === 403) {
-        throw new Error("ERROR 403 THIRD FETCH");
-      } else if (response.status === 500) {
-        throw new Error("ERROR 500 THIRD FETCH, SERVER PROBLEMS");
-      } else {
-        throw new Error("ERROR THIRD FETCH");
-      }
-    })
-    .then((data) => {
-      console.log("DATA RECEIVED FROM THE SERVER IN THE THIRD FETCH", data);
-      const price2 = document.getElementById("priceUnder");
-      const col3 = document.createElement("p");
-      col3.classList.add("col-4", "text-center");
-
-      col3.textContent = "DOT: " + data.polkadot.usd;
-
-      price2.appendChild(col3);
-
-      completedFetches++;
-      checkAndReload();
-
-      fetchSolana();
-    })
-    .catch((err) => {
-      console.log("ERROR THIRD FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
-      completedFetches++;
-      checkAndReload();
-    });
-}
-
-function fetchSolana() {
-  fetch(
-    "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd"
-  )
-    .then((response) => {
-      if (response.ok) {
-        console.log("SERVER IN FOURTH FETCH IS IN THE CALL", response);
-        return response.json();
-      } else if (response.status === 400) {
-        throw new Error("ERROR FOURTH FETCH 400");
-      } else if (response.status === 401) {
-        throw new Error("ERROR 401 FOURTH FETCH, AUTENTICATION PROBLEMS");
-      } else if (response.status === 403) {
-        throw new Error("ERROR 403 FOURTH FETCH");
-      } else if (response.status === 500) {
-        throw new Error("ERROR 500 FOURTH FETCH, SERVER PROBLEMS");
-      } else {
-        throw new Error("ERROR FOURTH FETCH");
-      }
-    })
-    .then((data) => {
-      console.log("DATA RECEIVED FROM THE SERVER IN THE FOURTH FETCH", data);
-      const priceUnder = document.getElementById("priceUnder");
-      const col4 = document.createElement("p");
-      col4.classList.add("col-4", "text-center");
-      col4.id = "parentDiv";
-
-      col4.textContent = "SOL: " + data.solana.usd;
-
-      priceUnder.appendChild(col4);
-
-      completedFetches++;
-      checkAndReload();
-    })
-    .catch((err) => {
-      console.log("ERROR FOURTH FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
-      completedFetches++;
-      checkAndReload();
-    });
-}
-
-function handleFetchResponse(response) {
-  if (response.ok) {
-    console.log("SERVER IS IN THE CALL", response);
-    return response.json();
-  } else {
-    throw new Error("ERROR " + response.status);
-  }
-}
-
-function handleFetchError(err) {
-  console.log("ERROR, SERVER DOES NOT RECEIVE THE CALL", err);
-  checkAndReload();
-}
+    priceUnder.appendChild(col4);
+    hideLoadingAnimation();
+  })
+  .catch((err) => {
+    console.log("ERROR FOURTH FETCH, SERVER DOES NOT RECEIVE THE CALL", err);
+  });
 
 ///////////////////////////////
 function hideLoadingAnimation() {
